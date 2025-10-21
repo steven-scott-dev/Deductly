@@ -1,4 +1,5 @@
 'use client'
+
 import Script from 'next/script'
 import { useEffect } from 'react'
 
@@ -6,14 +7,13 @@ export default function GAProvider() {
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
   useEffect(() => {
-    console.log('GAProvider mounted; GA_ID =', GA_ID)
+    if (GA_ID) console.log('Loaded GA_ID:', GA_ID)
   }, [GA_ID])
 
-  if (!GA_ID) return <div style={{display:"none"}} id="ga-status">No GA_ID</div>
+  if (!GA_ID) return null
 
   return (
     <>
-      <div style={{display:"none"}} id="ga-status">GA Active</div>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
