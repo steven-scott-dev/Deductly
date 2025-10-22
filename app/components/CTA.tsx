@@ -8,6 +8,7 @@ export default function CTA() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
+
     try {
       setState('loading')
 
@@ -18,13 +19,13 @@ export default function CTA() {
       })
 
       if (!res.ok) throw new Error('failed')
+
       setState('done')
 
-      // ✅ Fire GA4 custom event once signup succeeds
+      // ✅ Fire GA4 custom event when submission succeeds
       console.log('🧠 waitlist_signup fired')
-      if (typeof window !== 'undefined' && window.gtag) {
-        // @ts-ignore
-        gtag('event', 'waitlist_signup', {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'waitlist_signup', {
           event_category: 'engagement',
           event_label: 'Join Waitlist',
           value: 1,
