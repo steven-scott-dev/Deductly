@@ -24,13 +24,14 @@ export default function CTA() {
 
       // ✅ Fire GA4 custom event when submission succeeds
       console.log('🧠 waitlist_signup fired')
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'waitlist_signup', {
-          event_category: 'engagement',
-          event_label: 'Join Waitlist',
-          value: 1,
-        })
-      }
+      if (typeof window !== 'undefined' && window.gtag) {
+  window.gtag('event', 'waitlist_signup', {
+    event_category: 'engagement',
+    event_label: 'Join Waitlist',
+    value: 1,
+  })
+}
+
     } catch (err) {
       console.error('❌ waitlist signup failed', err)
       setState('error')
